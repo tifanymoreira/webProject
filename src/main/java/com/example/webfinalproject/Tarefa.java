@@ -1,26 +1,34 @@
 package com.example.webfinalproject;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.atomic.AtomicLong;
 
+@Entity
 public class Tarefa {
-    private static final AtomicLong counter = new AtomicLong();
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String descricao;
     private LocalDate dataVencimento;
     private boolean concluida;
 
-    // Construtor
+    // Construtor padrão (exigido pelo JPA)
+    public Tarefa() {
+    }
+
+    // Construtor original modificado
     public Tarefa(String descricao, LocalDate dataVencimento) {
-        this.id = counter.incrementAndGet();
         this.descricao = descricao;
         this.dataVencimento = dataVencimento;
         this.concluida = false;
     }
 
     // --- Getters! ---
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -37,6 +45,10 @@ public class Tarefa {
     }
 
     // --- Setters ! ---
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -47,20 +59,5 @@ public class Tarefa {
 
     public void setConcluida(boolean concluida) {
         this.concluida = concluida;
-    }
-
-    public void marcarComoConcluida() {
-        this.concluida = true;
-    }
-
- // ===================================================================================================
-    @Override
-    public String toString() {
-        String status = this.concluida ? "[CONCLUÍDA]" : "[PENDENTE]";
-        String dataFormatada = (dataVencimento != null) ?
-                dataVencimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "N/A";
-
-        return String.format("ID: %d | Descrição: %s | Vencimento: %s | Status: %s",
-                id, descricao, dataFormatada, status);
     }
 }
