@@ -1,0 +1,81 @@
+<!-- Botão para criar nova lista -->
+<div class="tarefas-header">
+  <button pButton label="Nova Lista" icon="pi pi-plus" (click)="novaLista()" class="p-button-info"></button>
+</div>
+
+<!-- Container das listas de tarefas -->
+<div class="tarefas-container">
+  <div *ngFor="let lista of listasTarefas" class="bloco lista-bloco" 
+       [style.left.px]="lista.posX" [style.top.px]="lista.posY">
+    <p-card [header]="lista.nome" styleClass="lista-card">
+      <div class="tarefas-container">
+        <div *ngFor="let tarefa of lista.tarefas" class="tarefa-item">
+          <input type="checkbox" [checked]="tarefa.concluida" 
+                 (change)="toggleTarefaConcluida(tarefa)">
+          <span [class.concluida]="tarefa.concluida">{{ tarefa.descricao }}</span>
+          <button pButton icon="pi pi-pencil" (click)="editarTarefa(tarefa)" 
+                  class="p-button-text p-button-sm" 
+                  pTooltip="Editar tarefa"></button>
+          <button pButton icon="pi pi-trash" (click)="excluirTarefa(tarefa)" 
+                  class="p-button-text p-button-sm p-button-danger"
+                  pTooltip="Excluir tarefa"></button>
+        </div>
+      </div>
+      <ng-template pTemplate="footer">
+        <div class="card-actions">
+          <button pButton icon="pi pi-plus" (click)="novaTarefa(lista)" 
+                  class="p-button-text p-button-sm"
+                  pTooltip="Nova tarefa"></button>
+          <button pButton icon="pi pi-pencil" (click)="editarLista(lista)" 
+                  class="p-button-text p-button-sm" 
+                  pTooltip="Editar lista"></button>
+          <button pButton icon="pi pi-trash" (click)="excluirLista(lista)" 
+                  class="p-button-text p-button-sm p-button-danger"
+                  pTooltip="Excluir lista"></button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
+
+<!-- Dialog para Lista de Tarefas -->
+<p-dialog header="Lista de Tarefas" [(visible)]="listaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="nomeLista">Nome da Lista</label>
+      <input pInputText id="nomeLista" [(ngModel)]="listaAtual.nome" required>
+    </div>
+    <div class="p-field">
+      <label for="descricaoLista">Descrição</label>
+      <textarea pInputTextarea id="descricaoLista" [(ngModel)]="listaAtual.descricao" rows="3"></textarea>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="listaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarLista()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog para Tarefa -->
+<p-dialog header="Tarefa" [(visible)]="tarefaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="descricaoTarefa">Descrição</label>
+      <input pInputText id="descricaoTarefa" [(ngModel)]="tarefaAtual.descricao" required>
+    </div>
+    <div class="p-field">
+      <label for="observacoesTarefa">Observações</label>
+      <textarea pInputTextarea id="observacoesTarefa" [(ngModel)]="tarefaAtual.observacoes" rows="3"></textarea>
+    </div>
+    <div class="p-field" *ngIf="listaAtualParaTarefa">
+      <label>Lista: {{ listaAtualParaTarefa.nome }}</label>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="tarefaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarTarefa()"></button>
+  </ng-template>
+</p-dialog>
+

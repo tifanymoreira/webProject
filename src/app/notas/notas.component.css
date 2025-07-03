@@ -1,0 +1,77 @@
+.notas-header {
+  margin-bottom: 20px;
+}
+
+.notas-container {
+  position: relative;
+  min-height: 400px;
+}
+
+.bloco {
+  position: absolute;
+  cursor: grab;
+  z-index: 1;
+}
+
+.bloco:active {
+  cursor: grabbing;
+}
+
+.nota-bloco {
+  width: 250px;
+}
+
+.nota-card {
+  background: var(--surface-card);
+  border-left: 4px solid var(--primary-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nota-card .p-card-title {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.nota-card .p-card-body {
+  color: var(--text-color-secondary);
+}
+
+.nota-card p {
+  margin: 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .bloco {
+    position: static !important;
+    margin-bottom: 20px;
+    width: 100% !important;
+  }
+  
+  .nota-bloco {
+    width: 100% !important;
+  }
+}
+

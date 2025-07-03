@@ -1,0 +1,13 @@
+<router-outlet></router-outlet>
+
+<p-toast></p-toast>
+
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle">
+  <ng-template pTemplate="footer" let-message>
+    <button type="button" pButton icon="pi pi-check" label="Sim"
+      (click)="message.accept()"></button>
+    <button type="button" pButton icon="pi pi-times" label="Não"
+      (click)="message.reject()"></button>
+  </ng-template>
+</p-confirmDialog>
+

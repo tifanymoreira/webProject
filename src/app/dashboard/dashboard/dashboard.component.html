@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="header">
+    <h1>Meu Workspace</h1>
+    <div class="header-actions">
+      <button pButton label="Nova Nota" icon="pi pi-plus" (click)="novaNota()" class="p-button-success"></button>
+      <button pButton label="Nova Lista" icon="pi pi-list" (click)="novaLista()" class="p-button-info"></button>
+      <button pButton label="Logout" icon="pi pi-sign-out" (click)="logout()" class="p-button-danger"></button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <!-- Notas -->
+    <div *ngFor="let nota of notas" class="bloco nota-bloco" 
+         [style.left.px]="nota.posX" [style.top.px]="nota.posY">
+      <p-card [header]="nota.titulo" styleClass="nota-card">
+        <p>{{ nota.conteudo }}</p>
+        <ng-template pTemplate="footer">
+          <div class="card-actions">
+            <button pButton icon="pi pi-pencil" (click)="editarNota(nota)" 
+                    class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-trash" (click)="excluirNota(nota)" 
+                    class="p-button-text p-button-sm p-button-danger"></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+
+    <!-- Listas de Tarefas -->
+    <div *ngFor="let lista of listasTarefas" class="bloco lista-bloco" 
+         [style.left.px]="lista.posX" [style.top.px]="lista.posY">
+      <p-card [header]="lista.titulo" styleClass="lista-card">
+        <div class="tarefas-container">
+          <div *ngFor="let tarefa of lista.tarefas" class="tarefa-item">
+            <input type="checkbox" [checked]="tarefa.concluida" 
+                   (change)="toggleTarefaConcluida(tarefa)">
+            <span [class.concluida]="tarefa.concluida">{{ tarefa.descricao }}</span>
+            <button pButton icon="pi pi-pencil" (click)="editarTarefa(tarefa)" 
+                    class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-trash" (click)="excluirTarefa(tarefa)" 
+                    class="p-button-text p-button-sm p-button-danger"></button>
+          </div>
+        </div>
+        <ng-template pTemplate="footer">
+          <div class="card-actions">
+            <button pButton label="Nova Tarefa" icon="pi pi-plus" 
+                    (click)="novaTarefa(lista)" class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-pencil" (click)="editarLista(lista)" 
+                    class="p-button-text p-button-sm"></button>
+            <button pButton icon="pi pi-trash" (click)="excluirLista(lista)" 
+                    class="p-button-text p-button-sm p-button-danger"></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog para Nota -->
+<p-dialog header="Nota" [(visible)]="notaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="titulo">Título</label>
+      <input pInputText id="titulo" [(ngModel)]="notaAtual.titulo" required>
+    </div>
+    <div class="p-field">
+      <label for="conteudo">Conteúdo</label>
+      <textarea pInputTextarea id="conteudo" [(ngModel)]="notaAtual.conteudo" rows="5"></textarea>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="notaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarNota()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog para Lista -->
+<p-dialog header="Lista de Tarefas" [(visible)]="listaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="tituloLista">Título</label>
+      <input pInputText id="tituloLista" [(ngModel)]="listaAtual.titulo" required>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="listaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarLista()"></button>
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog para Tarefa -->
+<p-dialog header="Tarefa" [(visible)]="tarefaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="descricaoTarefa">Descrição</label>
+      <input pInputText id="descricaoTarefa" [(ngModel)]="tarefaAtual.descricao" required>
+    </div>
+    <div class="p-field">
+      <label for="dataVencimento">Data de Vencimento</label>
+      <input pInputText id="dataVencimento" type="date" [(ngModel)]="tarefaAtual.dataVencimento">
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="tarefaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarTarefa()"></button>
+  </ng-template>
+</p-dialog>
+

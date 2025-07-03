@@ -1,0 +1,44 @@
+<!-- Botão para criar nova nota -->
+<div class="notas-header">
+  <button pButton label="Nova Nota" icon="pi pi-plus" (click)="novaNota()" class="p-button-success"></button>
+</div>
+
+<!-- Container das notas -->
+<div class="notas-container">
+  <div *ngFor="let nota of notas" class="bloco nota-bloco" 
+       [style.left.px]="nota.posX" [style.top.px]="nota.posY">
+    <p-card [header]="nota.titulo" styleClass="nota-card">
+      <p>{{ nota.conteudo }}</p>
+      <ng-template pTemplate="footer">
+        <div class="card-actions">
+          <button pButton icon="pi pi-pencil" (click)="editarNota(nota)" 
+                  class="p-button-text p-button-sm" 
+                  pTooltip="Editar nota"></button>
+          <button pButton icon="pi pi-trash" (click)="excluirNota(nota)" 
+                  class="p-button-text p-button-sm p-button-danger"
+                  pTooltip="Excluir nota"></button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
+
+<!-- Dialog para Nota -->
+<p-dialog header="Nota" [(visible)]="notaDialogVisible" [modal]="true" [style]="{width: '450px'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="titulo">Título</label>
+      <input pInputText id="titulo" [(ngModel)]="notaAtual.titulo" required>
+    </div>
+    <div class="p-field">
+      <label for="conteudo">Conteúdo</label>
+      <textarea pInputTextarea id="conteudo" [(ngModel)]="notaAtual.conteudo" rows="5"></textarea>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Cancelar" icon="pi pi-times" (click)="notaDialogVisible = false" 
+            class="p-button-text"></button>
+    <button pButton label="Salvar" icon="pi pi-check" (click)="salvarNota()"></button>
+  </ng-template>
+</p-dialog>
+

@@ -1,0 +1,157 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #000000;
+  padding: 2rem;
+  background-image: radial-gradient(circle at 10% 20%, rgba(255, 148, 218, 0.1) 0%, rgba(0, 0, 0, 1) 90%);
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #111111;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px rgba(255, 148, 218, 0.2);
+  border: 1px solid #e0218a;
+  
+  h1 {
+    color: #ff94da;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    position: relative;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff94da, #e0218a);
+      margin: 0.75rem auto 0;
+      border-radius: 4px;
+    }
+  }
+}
+
+form {
+  .p-grid {
+    margin: 0 -1rem;
+  }
+
+  .p-col-12 {
+    padding: 1rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #ff94da;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .p-inputtext {
+    width: 100%;
+    background-color: rgba(255, 148, 218, 0.1);
+    border: 2px solid #ff94da;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    
+    &:enabled:hover {
+      border-color: #e0218a;
+      background-color: rgba(255, 148, 218, 0.15);
+    }
+    
+    &:enabled:focus {
+      border-color: #e0218a;
+      box-shadow: 0 0 0 3px rgba(224, 33, 138, 0.3);
+      background-color: rgba(255, 148, 218, 0.2);
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      font-style: italic;
+    }
+  }
+
+  .p-button {
+    background: linear-gradient(135deg, #ff94da, #e0218a);
+    border: none;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    
+    &:enabled:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(224, 33, 138, 0.3);
+    }
+    
+    &:enabled:active {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      background: #555555;
+      cursor: not-allowed;
+    }
+  }
+
+  a {
+    color: #ff94da;
+    text-align: center;
+    display: block;
+    margin-top: 2rem;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Validação de formulário */
+.ng-invalid.ng-touched:not(form) {
+  border-left: 4px solid #ff5252 !important;
+  animation: shake 0.5s;
+}
+
+.ng-valid.ng-touched:not(form) {
+  border-left: 4px solid #4caf50 !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.75rem;
+    margin: 1rem;
+    
+    h1 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  :host {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,128 @@
+.container {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.workspace {
+  position: relative;
+  min-height: 600px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px),
+              linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bloco {
+  position: absolute;
+  cursor: move;
+}
+
+.nota-bloco {
+  width: 250px;
+}
+
+.lista-bloco {
+  width: 300px;
+}
+
+.nota-card {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+}
+
+.lista-card {
+  background: #d1ecf1;
+  border-left: 4px solid #17a2b8;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.tarefas-container {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tarefa-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.tarefa-item:last-child {
+  border-bottom: none;
+}
+
+.tarefa-item input[type="checkbox"] {
+  margin: 0;
+}
+
+.tarefa-item span {
+  flex: 1;
+  font-size: 14px;
+}
+
+.tarefa-item span.concluida {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .bloco {
+    position: static !important;
+    margin-bottom: 20px;
+    width: 100% !important;
+  }
+  
+  .workspace {
+    background: none;
+  }
+}
+
